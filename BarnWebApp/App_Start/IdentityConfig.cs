@@ -24,7 +24,6 @@ namespace BarnWebApp
         public Task SendAsync(IdentityMessage message)
         {
             // Plug in your email service here to send an email.
-            //return Task.FromResult(0);
             return Task.Factory.StartNew(() =>
             {
                 sendMail(message);
@@ -74,7 +73,7 @@ namespace BarnWebApp
         {
         }
 
-        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context) 
+        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
             var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
             // Configure validation logic for usernames
@@ -115,7 +114,7 @@ namespace BarnWebApp
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)
             {
-                manager.UserTokenProvider = 
+                manager.UserTokenProvider =
                     new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
             }
             return manager;
