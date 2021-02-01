@@ -43,17 +43,20 @@
 </div>
 
 
-<script src="https://maps.googleapis.com/maps/api/js"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key={APIKEY}&callback=initMap"></script>
 <script type="text/javascript">
-    jQuery(function ($) {
-        // Google Maps setup
-        var googlemap = new google.maps.Map(
-            document.getElementById('googlemap'),
-            {
-                center: new google.maps.LatLng(51.778665, -0.518451),
-                zoom: 8,
-                mapTypeId: google.maps.MapTypeId.ROADMAP
-            }
-        );
-    });
+    function initMap() {
+        const myLatLng = { lat: 51.778665, lng: -0.518451 };
+        const map = new google.maps.Map(document.getElementById("googlemap"), {
+            center: myLatLng,
+            zoom: 15,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+        new google.maps.Marker({
+            position: myLatLng,
+            map,
+            title: "The Barn",
+        });
+
+    }
 </script>
