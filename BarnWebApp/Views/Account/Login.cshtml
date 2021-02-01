@@ -13,7 +13,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="panel-title">Sign In</div>
-                        <div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="#">Forgot password?</a></div>
+                        <div style="float:right; font-size: 80%; position: relative; top:-10px">@Html.ActionLink("Forgot your password?", "ForgotPassword")</div>
                     </div>
 
                     <div style="padding-top:30px" class="panel-body">
@@ -37,9 +37,8 @@
                             <div class="input-group">
                                 <div class="col-md-offset-2 col-md-10">
                                     <div class="checkbox">
-                                        <!-- Need to sort out text wrapping -->
                                         @Html.CheckBoxFor(m => m.RememberMe)
-                                        @Html.LabelFor(m => m.RememberMe)
+                                        @Html.LabelFor(m => m.RememberMe, new { @style = "white-space: nowrap"})
                                     </div>
                                 </div>
                             </div>
@@ -59,10 +58,6 @@
                                     </div>
                                 </div>
                             </div>
-                            @* Enable this once you have account confirmation enabled for password reset functionality
-                                <p>
-                                    @Html.ActionLink("Forgot your password?", "ForgotPassword")
-                                </p>*@
                         }
 
                     </div>

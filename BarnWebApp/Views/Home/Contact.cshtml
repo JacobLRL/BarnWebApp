@@ -1,4 +1,5 @@
-﻿@{
+﻿@model BarnWebApp.Models.ContactViewModel
+@{
     ViewBag.Title = "Contact us";
 }
 
@@ -11,43 +12,51 @@
         </div>
         <br />
         <div class="col-md-6">
-            <form class="form-horizontal">
-                <div class="form-group">
-                    <label for="form-name">Name</label>
-                    <input type="email" class="form-control" id="form-name" placeholder="Name">
-                </div>
-                <div class="form-group">
-                    <label for="form-email">Email Address</label>
-                    <input type="email" class="form-control" id="form-email" placeholder="Email Address">
-                </div>
-                <div class="form-group">
-                    <label for="form-subject">Subject</label>
-                    <input type="text" class="form-control" id="form-subject" placeholder="Subject">
-                </div>
-                <div class="form-group">
-                    <label for="form-message">Email your Message</label>
-                    <textarea class="form-control" id="form-message" placeholder="Message"></textarea>
-                </div>
-                <div class="form-group">
-                    <input type="submit" class="btn btn-info" value="Contact Us" />
-                </div>
-            </form>
+            @using (Html.BeginForm("Contact", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                <form id="contactform" class="form-horizontal" method="post">
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Name, new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @placeholder = "Name" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Email, new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Email Address" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Subject, new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.Subject, new { @class = "form-control", @placeholder = "Subject" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Message, new { @class = "control-label" })
+                        @Html.TextAreaFor(m => m.Message, new { @class = "form-control", @placeholder = "Message" })
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-info" value="Contact Us" />
+                    </div>
+                </form>
+            }
         </div>
     </div>
 </div>
 
 
-<script src="https://maps.googleapis.com/maps/api/js"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key={APIKEY}&callback=initMap"></script>
 <script type="text/javascript">
-    jQuery(function ($) {
-        // Google Maps setup
-        var googlemap = new google.maps.Map(
-            document.getElementById('googlemap'),
-            {
-                center: new google.maps.LatLng(51.778665, -0.518451),
-                zoom: 8,
-                mapTypeId: google.maps.MapTypeId.ROADMAP
-            }
-        );
-    });
+    function initMap() {
+        const myLatLng = { lat: 51.778665, lng: -0.518451 };
+        const map = new google.maps.Map(document.getElementById("googlemap"), {
+            center: myLatLng,
+            zoom: 15,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+        new google.maps.Marker({
+            position: myLatLng,
+            map,
+            title: "The Barn",
+        });
+
+    }
 </script>
